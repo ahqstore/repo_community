@@ -151,19 +151,37 @@ ${stderr || "No StdErr Terminal"}
 
       const acc = await fetch(link).then((s) => s.json());
 
-      acc.id = author_hashed_username;
-      acc.github = author_username;
-      acc.avatar_url = null;
+      writeFileSync(
+        path,
+        JSON.stringify(
+          {
+            name: acc.name,
+            id: author_hashed_username,
+            github: author_username,
+            avatar_url: (() => {
+              if (typeof acc.avatar_url != "string") {
+                return null;
+              } else if (!acc.avatar_url.startsWith("https://")) {
+                return null;
+              } else if (acc.avatar_url.length > 30) {
+                return null;
+              }
 
-      writeFileSync(path, JSON.stringify(acc, null, 2));
+              return acc.avatar_url;
+            })(),
+          },
+          null,
+          2
+        )
+      );
     } else if (cmd == "remove") {
-      const user = link;
-
       const author_hashed_username = hash(author_username);
 
-      if (user != author_hashed_username) {
+      const manifestPath = `./manifests/${author_username[0]}/${author_username}`;
+
+      if (existsSync(manifestPath)) {
         await github.rest.issues.createComment({
-          body: "You can only remove your own account",
+          body: "Please remove all your registered apps before you delete your account",
           owner,
           repo,
           issue_number,
