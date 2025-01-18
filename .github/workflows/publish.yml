@@ -1,0 +1,37 @@
+name: Update schema on demand
+
+on:
+  workflow_dispatch:
+  push:
+
+concurrency:
+  cancel-in-progress: false
+  group: db_updater_bot
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Remake files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        run: |
+          rustup install stable
+          git pull
+
+      - name: Run
+        run: cargo run --no-default-features
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: AHQ Store Bot
+          message: Refresh Entries
