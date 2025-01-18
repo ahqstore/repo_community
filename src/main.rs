@@ -1,7 +1,11 @@
-mod load;
 mod parser;
-mod remove;
 mod types;
+
+#[cfg(feature = "load_bytes")]
+mod load;
+
+#[cfg(feature = "remove_manifest")]
+mod remove;
 
 pub mod shared;
 

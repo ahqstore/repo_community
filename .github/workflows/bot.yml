@@ -42,11 +42,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Schema Parser
-        run: cargo run --no-default-features
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Push to GitHub
         uses: EndBug/add-and-commit@v9
         with:
