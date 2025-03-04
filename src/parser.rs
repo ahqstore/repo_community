@@ -59,7 +59,7 @@ impl Map {
   fn add_author(&mut self, author: &str, app_id: &str) {
     let file = format!("./db/dev/{}", author);
     let mut val = fs::read_to_string(&file).unwrap_or("".to_string());
-    val.push_str(&format!("{}\n", &app_id));
+    val.push_str(&format!("a:{}\n", &app_id));
 
     let _ = fs::write(&file, val);
   }
@@ -79,24 +79,31 @@ impl Map {
 
     let _ = self
       .c_file
-      .write(format!("\"{}\":\"{}\"", app.appDisplayName, app.appId).as_bytes());
+      .write(format!("\"{}\":\"a:{}\"", app.appDisplayName, app.appId).as_bytes());
     let _ = self.search.write(
       format!(
         "{{\"name\": {:?}, \"title\": {:?}, \"id\": {:?}}}",
-        app.appDisplayName, app.appShortcutName, app.appId
+        app.appDisplayName, app.appShortcutName, format!("a:{}", app.appId)
       )
       .as_bytes(),
     );
 
-    let (app_str, res) = app.export();
+    let (_, res) = app.export();
 
-    let _ = fs::write(format!("./db/apps/{}.json", &app.appId), app_str);
-
+    
     let _ = fs::create_dir_all(format!("./db/res/{}", &app.appId));
 
     for (id, bytes) in res {
       let _ = fs::write(format!("./db/res/{}/{}", &app.appId, id), bytes);
     }
+    
+    let path = format!("./db/apps/{}.json", &app.appId);
+
+    app.appId = format!("a:{}", app.appId);
+    app.authorId = format!("a:{}", app.authorId);
+
+    let app_str = serde_json::to_string(&app).unwrap();
+    let _ = fs::write(path, app_str);
   }
 
   fn finish(mut self) {
