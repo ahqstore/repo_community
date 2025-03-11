@@ -64,7 +64,7 @@ impl Map {
     let _ = fs::write(&file, val);
   }
 
-  fn add(&mut self, app: AHQStoreApplication) {
+  fn add(&mut self, mut app: AHQStoreApplication) {
     if self.entries >= 100_000 {
       self.new_file();
     }
