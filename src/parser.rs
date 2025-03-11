@@ -118,6 +118,8 @@ pub fn parser() {
   let _ = fs::remove_dir_all("./db");
   let _ = fs::create_dir_all("./db");
 
+  let _ = fs::copy("./manifests/home.json", "./db/home.json");
+
   let mut map = Map::new();
 
   for letter in fs::read_dir("./manifests").unwrap() {
