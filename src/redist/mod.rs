@@ -41,7 +41,7 @@ pub fn get_vscodium() -> Option<AHQStoreApplication> {
   let mut winarm_zip = None;
 
   for x in iter {
-    if x.name.ends_with(".msi") && x.name.contains("win32") && x.name.contains("x64") && !x.name.contains("disabled") {
+    if x.name.ends_with(".msi") && x.name.contains("x64") && !x.name.contains("disabled") {
       win32_msi = Some(x.browser_download_url);
     } else if x.name.ends_with("x86_64.AppImage") {
       linux_appimage = Some(x.browser_download_url);
