@@ -7,6 +7,7 @@ mod load;
 #[cfg(feature = "remove_manifest")]
 mod remove;
 
+pub mod redist;
 pub mod shared;
 
 use parser::*;

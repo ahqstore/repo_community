@@ -11,6 +11,10 @@ pub fn remove_manifest() {
 
   let app = Data::from_bytes(&fs::read_to_string(&val).expect("Unable to read file, impossible technically")).0;
 
+  #[cfg(debug_assertions)]
+  let gh = "";
+
+  #[cfg(not(debug_assertions))]
   let gh = env!("GH_USER_USERNAME");
 
   if &app.repo.author != gh && !has_org_members(&app.repo.author, gh) {

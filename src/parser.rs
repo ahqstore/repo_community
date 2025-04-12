@@ -5,6 +5,8 @@ use std::{
   io::Write,
 };
 
+use crate::redist::get_redistapps;
+
 struct Map {
   entries: usize,
   files: usize,
@@ -155,6 +157,11 @@ pub fn parser() {
       }
     }
   }
+
+  for app in get_redistapps().expect("Unable to get redistributed apps") {
+    map.add(app);
+  }
+
   map.finish();
   println!("✅ Done!");
 }
