@@ -10,7 +10,6 @@ struct Org {
 
 pub static CLIENT: LazyLock<Client> = LazyLock::new(|| {
   ClientBuilder::new()
-    .user_agent("AHQ Store")
     .default_headers({
       let mut h = HeaderMap::new();
 
@@ -20,6 +19,7 @@ pub static CLIENT: LazyLock<Client> = LazyLock::new(|| {
 
       h
     })
+    .user_agent("AHQ Store")
     .build()
     .unwrap()
 });

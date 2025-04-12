@@ -28,9 +28,11 @@ pub fn get_redistapps() -> Option<Vec<AHQStoreApplication>> {
 pub fn get_vscodium() -> Option<AHQStoreApplication> {
   let dat: GitHubRelease = CLIENT.get("https://api.github.com/repos/VSCodium/vscodium/releases/latest")
     .send()
-    .ok()?
+    //.ok()?
+    .unwrap()
     .json()
-    .ok()?;
+    //.ok()?;
+    .unwrap();
 
   let mut iter = dat.assets.into_iter();
 
@@ -105,18 +107,22 @@ pub fn get_vscodium() -> Option<AHQStoreApplication> {
 
           let bytes = CLIENT.get("https://avatars.githubusercontent.com/u/40338071?v=4")
             .send()
-            .ok()?
+            //.ok()?
+            .unwrap()
             .bytes()
-            .ok()?
+            //.ok()?
+            .unwrap()
             .to_vec();
 
           hashmap.insert(0, bytes);
 
           let bytes = CLIENT.get("https://vscodium.com/img/vscodium.png")
             .send()
-            .ok()?
+            .unwrap()
+            //.ok()?
             .bytes()
-            .ok()?
+            .unwrap()
+            //.ok()?
             .to_vec();
 
           hashmap.insert(1, bytes);
