@@ -98,6 +98,8 @@ impl Map {
     for (id, bytes) in res {
       let _ = fs::write(format!("./db/res/{}/{}", &app.appId, id), bytes);
     }
+
+    app.resources = None;
     
     let path = format!("./db/apps/{}.json", &app.appId);
 

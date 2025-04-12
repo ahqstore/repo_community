@@ -28,19 +28,31 @@ pub fn get_redistapps() -> Option<Vec<AHQStoreApplication>> {
 pub fn get_vscodium() -> Option<AHQStoreApplication> {
   let dat: GitHubRelease = CLIENT.get("https://api.github.com/repos/VSCodium/vscodium/releases/latest")
     .send()
-    //.ok()?
-    .unwrap()
+    .ok()?
     .json()
-    //.ok()?;
-    .unwrap();
+    .ok()?;
 
-  let mut iter = dat.assets.into_iter();
+  let iter = dat.assets.into_iter();
 
   let version = dat.tag_name;
-  let win32_msi = iter.find(|x| x.name.ends_with(".msi") && !x.name.contains("disabled"))?.browser_download_url;
-  let winarm_zip = iter.find(|x| x.name.ends_with(".zip") && x.name.contains("arm64"))?.browser_download_url;
-  
-  let linux_appimage = iter.find(|x| x.name.ends_with("x86_64.AppImage"))?.browser_download_url;
+
+  let mut win32_msi = None;
+  let mut linux_appimage = None;
+  let mut winarm_zip = None;
+
+  for x in iter {
+    if x.name.ends_with(".msi") && x.name.contains("win32") && x.name.contains("x64") && !x.name.contains("disabled") {
+      win32_msi = Some(x.browser_download_url);
+    } else if x.name.ends_with("x86_64.AppImage") {
+      linux_appimage = Some(x.browser_download_url);
+    } else if x.name.ends_with(".zip") && x.name.contains("win32") && x.name.contains("arm64") {
+      winarm_zip = Some(x.browser_download_url);
+    }
+  }
+
+  let win32_msi = win32_msi?;
+  let linux_appimage = linux_appimage?;
+  let winarm_zip = winarm_zip?;
 
   let mut dwnl = HashMap::new();
 
