@@ -24,7 +24,7 @@ module.exports = async (github, ctx) => {
 
   const issue_number = ctx.payload.issue.number;
 
-  const author_username = ctx.payload.comment.user.login;
+  const author_username = ctx.payload.comment.user.login.toLowerCase();
 
   const body = ctx.payload.comment.body;
 
