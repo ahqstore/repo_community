@@ -169,6 +169,7 @@ ${stderr || "No StdErr Terminal"}
 
               return acc.avatar_url;
             })(),
+            verified: false,
           },
           null,
           2
