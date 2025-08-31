@@ -7,7 +7,7 @@ use super::shared::{gh::has_org_members, user};
 
 use crate::Data;
 
-pub mod android;
+// pub mod android;
 
 pub fn run() {
   let val = fs::read_to_string("./bytes.txt").unwrap();
@@ -38,8 +38,12 @@ pub fn run() {
     panic!("Author: {} not found!", &author_id);
   };
 
-  if user.github != gh_author && has_org_members(gh_author, &user.github) {
-    panic!("Author is not the same as GitHub repo author or GitHub org public member");
+  if user.github != gh_author {
+    panic!("Author is not the same as GitHub repo author");
+  }
+
+  if author != &user.github && !has_org_members(author, &user.github) {
+    panic!("Author is not the same as GitHub repo author neither is a member");
   }
 
   no_duped_appid(&app);
