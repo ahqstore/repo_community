@@ -153,7 +153,7 @@ ${stderr || "No StdErr Terminal"}
       if (link.startsWith("base64:")) {
         const base64Data = link.split("base64:")[1];
 
-        acc = JSON.parse(Buffer.from(base64Data, "base64").toString());
+        acc = JSON.parse(decodeUriComponent(Buffer.from(base64Data, "base64").toString()));
       } else {
         acc = await fetch(link).then((s) => s.json());
       }
