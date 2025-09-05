@@ -149,7 +149,14 @@ ${stderr || "No StdErr Terminal"}
         return;
       }
 
-      const acc = await fetch(link).then((s) => s.json());
+      let acc;
+      if (link.startsWith("base64:")) {
+        const base64Data = link.split("base64:")[1];
+
+        acc = JSON.parse(Buffer.from(base64Data, "base64").toString());
+      } else {
+        acc = await fetch(link).then((s) => s.json());
+      }
 
       writeFileSync(
         path,
