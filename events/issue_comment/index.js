@@ -31,7 +31,7 @@ module.exports = async (github, ctx) => {
   const [slash, cmd, link] = body.split(" ");
 
   const owner = "ahqstore";
-  const repo = "apps";
+  const repo = "repo_community";
 
   if (slash == "/store") {
     if (cmd == "set") {
