@@ -8,7 +8,7 @@ pub struct User {
   pub name: String,
   pub id: String,
   pub github: String,
-  pub avatar_url: String,
+  pub avatar_url: Option<String>,
 }
 
 pub fn get_author(id: &str) -> Option<User> {
