@@ -1,0 +1,10 @@
+{
+    "isInfected": false,
+    "goodFiles": [
+        "1.zip"
+    ],
+    "badFiles": [],
+    "skipped": [],
+    "viruses": [],
+    "total": 1
+}
