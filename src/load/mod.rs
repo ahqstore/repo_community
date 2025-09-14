@@ -63,7 +63,7 @@ pub fn run() {
 fn no_duped_appid(app: &AHQStoreApplication) {
   if let Ok(val) = fs::read_to_string(format!("./db/apps/{}.json", &app.appId)) {
     if let Ok(ap) = from_str::<AHQStoreApplication>(&val) {
-      if ap.authorId != app.authorId {
+      if &ap.authorId[2..] != &app.authorId {
         panic!("AppId already exists for another author!");
       }
     }
