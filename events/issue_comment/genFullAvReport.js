@@ -44,7 +44,7 @@ module.exports = async (github, ctx) => {
 
   const { id } = (
     await github.rest.issues.createComment({
-      issue_number: ctx.payload.issue.id,
+      issue_number: ctx.payload.issue.number,
       owner,
       repo,
       body: JSON.stringify({ win32, linux, android }, null, 4),
