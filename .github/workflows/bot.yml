@@ -174,7 +174,11 @@ jobs:
 
       - name: Download
         run: |
+          sudo apt-get update
+          sudo apt-get install tree
           cargo run --manifest-path ./avdwnl/Cargo.toml
+
+          tree samples/
         env:
           DWNL_URL: ${{ needs.startup.outputs.dwnl }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
