@@ -8,11 +8,12 @@ macro_rules! dwnl {
     {
       $cntr += 1;
       
-      let asset = $f.install.$os.as_ref().unwrap().assetId;
+      let asset = $f.install.$os.as_ref();
 
-      let url = $f.downloadUrls.get(&asset);
+      if let Some(asset) = asset {
+        let asset = asset.assetId;
+        let url = $f.downloadUrls.get(&asset).unwrap();
 
-      if let Some(url) = url {
         let bytes = $c.get(&url.url)
           .send()
           .await
