@@ -30,7 +30,18 @@ jobs:
           script: |
             const body = context.payload.comment.body;
 
-            return body.startsWith("/store set ") ? "true" : "false"
+            const output = body.startsWith("/store set ") ? "true" : "false"
+
+            if (output == "true") {
+              await github.rest.issues.createComment({
+                issue_number: context.payload.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `@${context.payload.comment.user.login} Please wait while we scan your binaries. It might take a while (especially for apps that have apk files)`
+              });
+            }
+
+            return output;
 
       - name: Find Download URL for Schema
         uses: actions/github-script@v8

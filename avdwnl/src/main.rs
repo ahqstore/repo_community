@@ -1,4 +1,4 @@
-use std::fs::{create_dir_all, write};
+use std::fs::{create_dir_all, read_dir, write};
 
 use ahqstore_types::{AHQStoreApplication, InstallerFormat};
 use reqwest::{ClientBuilder, header::{AUTHORIZATION, HeaderMap, HeaderValue}};
@@ -82,6 +82,10 @@ async fn main() {
   // Linux
   dwnl!(client, file, linux, counter);
   dwnl!(client, file, linuxArm64, counter);
+
+  if read_dir("./samples").unwrap().collect::<Vec<_>>().len() == 0 {
+    panic!("Empty dir");
+  }
 
   println!("Downloads complete!");
 }

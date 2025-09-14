@@ -11,6 +11,7 @@ console.log(`Using token: \`${authorizationToken}\``);
 
 async function uploadFile() {
   if (!filePath) {
+    writeFileSync("./hash", "");
     return;
   }
 

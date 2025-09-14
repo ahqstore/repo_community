@@ -11,6 +11,10 @@ const authorizationToken = readFileSync("./token").toString().trim();
 console.log(`Using token: \`${authorizationToken}\``);
 
 async function scanFile() {
+  if (authorizationToken == "") {
+    return;
+  }
+
   try {
     const response = await fetch(url, {
       method: "POST",
