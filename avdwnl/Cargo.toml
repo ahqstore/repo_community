@@ -1,0 +1,10 @@
+[package]
+name = "avdwnl"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+ahqstore-types = "3.17.1"
+reqwest = { version = "0.12.23", features = ["json"] }
+serde_json = "1.0.144"
+tokio = { version = "1.47.1", features = ["sync", "rt", "time", "macros"] }
