@@ -262,13 +262,10 @@ jobs:
 
       - name: Gen full AV Report
         if: needs.startup.outputs.shouldRunAsString == 'true'
-        run: |
-          sudo apt-get update
-          sudo apt-get install tree
-
-          tree ./reports/
-
-          node events/issue_comment/genFullAvReport.js
+        uses: actions/github-script@v7
+        with:
+          script: |
+            require("./events/issue_comment/genFullAvReport.js")(github, context)
 
       - name: Run
         uses: actions/github-script@v7
