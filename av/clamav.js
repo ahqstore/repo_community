@@ -1,5 +1,6 @@
 const NodeClam = require("clamscan");
 const fs = require("fs");
+const { join } = require("path");
 
 (async () => {
   const av = await new NodeClam().init({
@@ -32,7 +33,9 @@ const fs = require("fs");
     preference: "clamscan", // If clamdscan is found and active, it will be used by default
   });
 
-  const { badFiles, goodFiles, viruses } = await av.scanDir("./samples");
+  const { badFiles, goodFiles, viruses } = await av.scanDir(
+    join(__dirname, "..", "samples")
+  );
 
   const isInfected = badFiles.length > 0;
 
