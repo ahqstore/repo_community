@@ -19,15 +19,16 @@ checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
 
 [[package]]
 name = "ahqstore-types"
-version = "3.17.2"
+version = "3.17.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e39039eb5c3be2e8c44c04fbe4a44b3cd304d0959f47126ee0419ab34cce6e21"
+checksum = "60fd4c81944b537fbd0744d067d2dc16249cde314fb0cde0fc499af41c17ee3f"
 dependencies = [
  "anyhow",
  "fuse-rust",
  "reqwest",
  "serde",
  "serde_json",
+ "tokio",
 ]
 
 [[package]]
