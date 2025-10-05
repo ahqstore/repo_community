@@ -112,7 +112,8 @@ pub fn get_vscodium() -> Option<AHQStoreApplication> {
       site: Some(format!("https://vscodium.com/")),
       source: Some(format!("https://vscodium.com")),
       verified: true,
-      version,
+      usrVersion: Some(version),
+      version: 0,
       resources: Some(
         {
           let mut hashmap = HashMap::new();
