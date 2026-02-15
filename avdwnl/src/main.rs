@@ -28,7 +28,8 @@ macro_rules! dwnl {
           InstallerFormat::WindowsInstallerExe => ".exe",
           InstallerFormat::WindowsInstallerMsi => ".msi",
           InstallerFormat::WindowsUWPMsix => ".msix",
-          InstallerFormat::WindowsZip => ".zip"
+          InstallerFormat::WindowsZip => ".zip",
+          InstallerFormat::WindowsAHQDB => ".ahqdb"
         };
 
         let fle = format!("{}{ext}", $cntr);
